@@ -1,0 +1,88 @@
+from abc import ABC, abstractmethod
+class Person(ABC):
+    def display(self):
+        pass
+class Employee(Person):
+    def __init__(self,emp_id,name,department,designation,experience,salary,bonus):
+        self.__emp_id=emp_id
+        self.__name=name
+        self.__department=department
+        self.__designation=designation
+        self.__experience=experience
+        self.__salary=salary
+        self.__bonus=bonus
+    def get_id(self):
+        return self.__emp_id
+    def get_name(self):
+        return self.__name
+    def get_salary(self):
+        return self.__salary
+    def get_bonus(self):
+        return self.__bonus
+    def get_experience(self):
+        return self.__experience
+    def set_salary(self,salary):
+        self.__salary=salary
+    def set_bonus(self,bonus):
+        self.__bonus=bonus
+    def set_experience(self,experience):
+        self.__experience=experience
+    def display(self):
+        total=self.__salary+self.__bonus
+        print("\n----- Employee Details -----")
+        print("Employee ID :",self.__emp_id)
+        print("Name        :",self.__name)
+        print("Department  :",self.__department)
+        print("Designation :",self.__designation)
+        print("Experience  :",self.__experience, "Years")
+        print("Salary      :",self.__salary)
+        print("Bonus       :",self.__bonus)
+        print("Total Salary:",total)
+emp_list=[]
+while True:
+    print("\n===== Employee Record Management System =====")
+    print("1.Add Employee")
+    print("2.Display All Employees")
+    print("3.Search Employee")
+    print("4.Update Employee")
+    print("5.Exit")
+    ch=int(input("Enter Choice:"))
+    if ch==1:
+        emp_id=int(input("Enter Employee ID:"))
+        name=input("Enter Name:")
+        department=input("Enter Department:")
+        designation=input("Enter Designation:")
+        experience=int(input("Enter Experience(Years):"))
+        salary=float(input("Enter Salary:"))
+        bonus=float(input("Enter Bonus:"))
+        emp=Employee(emp_id,name,department,designation,experience,salary,bonus)
+        emp_list.append(emp)
+        print("Employee Added Successfully!")
+    elif ch==2:
+        if len(emp_list)==0:
+            print("No Employee Records Found.")
+        else:
+            for emp in emp_list:
+                emp.display()
+    elif ch==3:
+        eid=int(input("Enter Employee ID to Search:"))
+        found=False
+        for emp in emp_list:
+            if emp.get_id()==eid:
+                emp.display()
+                found=True
+                break
+        if not found:
+            print("Employee Not Found!")
+    elif ch==4:
+        eid=int(input("Enter Employee ID:"))
+        found=False
+        for emp in emp_list:
+            if emp.get_id()==eid:
+                salary=float(input("Enter New Salary:"))
+                bonus=float(input("Enter New Bonus:"))
+                experience=int(input("Enter New Experience:"))
+                emp.set_salary(salary)
+                emp.set_bonus(bonus)
+                emp.set_experience(experience)
+                print("Record Updated Successfully!")
